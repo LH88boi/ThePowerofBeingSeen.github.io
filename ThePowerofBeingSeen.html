@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们在不同的温度沸腾：女性力量纪念书册</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        :root {
+            --color-paper: #fefcf8;
+            --color-cover: #8b575c;
+            --color-text: #3a2e2e;
+            --color-accent: #d4a5a5;
+            --color-highlight: #b86b6b;
+            --color-shadow: rgba(139, 87, 92, 0.1);
+            
+            --font-size-sm: 0.9rem;
+            --font-size-base: 1rem;
+            --font-size-md: 1.1rem;
+            --font-size-lg: 1.3rem;
+            --font-size-xl: 1.6rem;
+            --font-size-xxl: 2rem;
+            
+            --font-heading: 'Noto Serif SC', serif;
+            --font-body: 'Source Sans Pro', sans-serif;
+            --font-accent: 'ZCOOL XiaoWei', serif;
+            --font-decorative: 'Ma Shan Zheng', cursive;
+            --font-quote: 'Noto Serif SC', serif;
+            
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--color-text);
+            background: linear-gradient(135deg, #f5f1ea 0%, #e8e2d8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* 书册容器 */
+        .book-container {
+            width: 900px;
+            height: 600px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* 书页通用样式 */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: var(--color-paper);
+            padding: 40px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            border: 1px solid rgba(139, 87, 92, 0.1);
+        }
+
+        /* 页眉 */
+        .page-header {
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: var(--font-size-xl);
+            color: var(--color-cover);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            font-size: var(--font-size-sm);
+            color: #888;
+            font-style: italic;
+        }
+
+        /* 引言特殊样式 */
+        #page1 .intro-quote {
+            font-family: var(--font-quote);
+            font-size: var(--font-size-lg);
+            color: var(--color-highlight);
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            line-height: 1.6;
+            border-left: 3px solid var(--color-accent);
+            background: linear-gradient(to right, rgba(212, 165, 165, 0.05), rgba(212, 165, 165, 0));
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px var(--color-shadow);
+            border-left: 4px solid var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 87, 92, 0.15);
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: var(--font-size-md);
+            color: var(--color-cover);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+            color: var(--color-accent);
+        }
+
+        /* 表格样式 */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: var(--font-size-sm);
+        }
+
+        .comparison-table th {
+            background: var(--color-cover);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(139, 87, 92, 0.1);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(212, 165, 165, 0.05);
+        }
+
+        /* 奖章样式 */
+        .badge {
+            display: inline-block;
+            background: rgba(139, 87, 92, 0.1);
+            color: var(--color-cover);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 2px;
+            border: 1px solid rgba(139, 87, 92, 0.2);
+        }
+
+        /* 导航按钮 - 重点修正部分 */
+        .book-nav {
+            position: absolute;
+            top: 50%;
+            right: 20px; /* 始终靠右 */
+            transform: translateY(-50%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .nav-btn {
+            pointer-events: auto;
+            background: var(--color-cover);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            border: none;
+            outline: none;
+        }
+
+        .nav-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* 封面页特殊按钮样式 - 只显示下一页按钮 */
+        .first-page-nav {
+            position: absolute;
+            top: 50%;
+            right: 20px; /* 固定在右侧 */
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        /* 非封面页的导航容器 */
+        .page-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .page-nav .nav-btn {
+            pointer-events: auto;
+        }
+
+        /* 页码指示器 */
+        .page-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: rgba(139, 87, 92, 0.6);
+            font-size: var(--font-size-sm);
+            font-family: var(--font-heading);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 950px) {
+            .book-container {
+                width: 95vw;
+                height: 70vh;
+            }
+            
+            .page {
+                padding: 25px;
+            }
+            
+            .book-nav, .first-page-nav, .page-nav {
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .book-container {
+                height: 80vh;
+            }
+            
+            .page-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .intro-quote {
+                font-size: var(--font-size-md);
+                margin: 20px 0;
+            }
+            
+            .nav-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book-container {
+                height: 85vh;
+            }
+            
+            .page {
+                padding: 15px;
+            }
+            
+            .nav-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container" id="book">
+        <!-- 封面页导航按钮 (只在右侧显示下一页) -->
+        <div class="first-page-nav" id="firstPageNav">
+            <button class="nav-btn" id="nextPageFromFirst">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- 其他页导航按钮 (左右都有) -->
+        <div class="page-nav" id="pageNav" style="display: none;">
+            <button class="nav-btn" id="prevPage">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn" id="nextPage">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- 第1页：封面/引言 -->
+        <div class="page" id="page1">
+            <div class="page-header">
+                <h1 class="page-title">我们在不同的温度沸腾</h1>
+                <p class="page-subtitle">女性力量纪念书册</p>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <i class="fas fa-book-sparkles" style="font-size: 4rem; color: var(--color-accent); margin-bottom: 30px;"></i>
+                <p class="intro-quote">女性最闪耀的时刻，往往不是在顺境中发光，而是在认清生活的粗粝与自身的不完美后，依然选择勇敢地、按照自己的意愿，去重塑命运的形状。</p>
+            </div>
+            <div style="margin-top: 60px; padding: 20px; background: rgba(212, 165, 165, 0.05); border-radius: var(--border-radius);">
+                <p style="font-size: var(--font-size-sm); color: #666; text-align: center;">
+                    这本书记录了五位女性的故事。她们是演员、导演，也是女儿、母亲与创作者。在不同的起点与境遇中，她们各自找到了沸腾的温度，在电影与现实的双重舞台上，刻下了独一无二的女性叙事。
+                </p>
+            </div>
+            <div class="page-indicator">1</div>
+        </div>
+
+        <!-- 第2页：辛芷蕾 -->
+        <div class="page" id="page2" style="display: none;">
+            <div class="page-header">
+                <h2 class="page-title">辛芷蕾：坦荡的进取者</h2>
+                <p class="page-subtitle">从鹤岗到威尼斯</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-map-pin"></i> 起点</h3>
+                <p>黑龙江鹤岗普通家庭，为养家踏入演艺圈。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-exchange-alt"></i> 转折</h3>
+                <p>凭借"野心"坦率争取角色，在《繁花》等作品中从外部形态向内打磨演技。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-award"></i> 高光时刻</h3>
+                <p>2025年，凭《日掛中天》成为威尼斯电影节影后，实现了"国际巨星"的梦想。在领奖台上，她对母亲哽咽道："你看！"——这句未说完的话，是对过往所有承诺的兑现。</p>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(to right, rgba(139, 87, 92, 0.05), rgba(139, 87, 92, 0));">
+                <h3 class="card-title"><i class="fas fa-star"></i> 力量内核</h3>
+                <p><strong>不掩饰对成功的渴望</strong>，用扎实的"笨功夫"将野心兑现为实力。她证明了，坦荡的欲望与极致的勤奋，是改写命运的最强脚本。</p>
+            </div>
+            <div class="page-indicator">2</div>
+        </div>
+
+        <!-- 第3页：赵箫泓 -->
+        <div class="page" id="page3" style="display: none;">
+            <div class="page-header">
+                <h2 class="page-title">赵箫泓：绝境的救赎者</h2>
+                <p class="page-subtitle">深渊中的花朵</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-map-pin"></i> 起点</h3>
+                <p>幼年被弃，婚后长期遭受家暴，在反抗中失手弑夫，入狱十余年。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-exchange-alt"></i> 转折</h3>
+                <p>狱中积极改造，学习才艺，以真实经历出演电影，完成自我表达与救赎。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-award"></i> 高光时刻</h3>
+                <p>2025年，以素人身份主演个人传记电影《监狱来的妈妈》，在圣塞巴斯蒂安国际电影节获奖。她含泪感谢自己："千万次救自己于水火之中。"她的故事成为无数困境女性的光。</p>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(to right, rgba(154, 123, 140, 0.05), rgba(154, 123, 140, 0));">
+                <h3 class="card-title"><i class="fas fa-star"></i> 力量内核</h3>
+                <p><strong>在至暗时刻仍未放弃自我</strong>，用坚韧完成对命运的反抗与超越。她诠释了，即便坠入最深的井，仰望星空并向上攀爬的意志，本身就是救赎。</p>
+            </div>
+            <div class="page-indicator">3</div>
+        </div>
+
+        <!-- 第4页：舒淇 -->
+        <div class="page" id="page4" style="display: none;">
+            <div class="page-header">
+                <h2 class="page-title">舒淇：和解的治愈者</h2>
+                <p class="page-subtitle">将伤痕淬炼为艺术</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-map-pin"></i> 起点</h3>
+                <p>童年遭遇家暴，为生计拍摄写真与三级片，背负巨大舆论压力。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-exchange-alt"></i> 转折</h3>
+                <p>凭《色情男女》成功转型，从演员到导演，将个人创伤升华为艺术创作。</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-award"></i> 高光时刻</h3>
+                <p>2025年，凭自编自导的《女孩》获釜山国际电影节最佳导演奖。这部电影源于她的童年创伤，她说创作过程是与母亲、也是与自己的一次和解。她完成了从"被讲述的故事"到"讲述者"的蜕变。</p>
+            </div>
+            
+            <div class="card" style="background: linear-gradient(to right, rgba(138, 154, 140, 0.05), rgba(138, 154, 140, 0));">
+                <h3 class="card-title"><i class="fas fa-star"></i> 力量内核</h3>
+                <p><strong>勇敢凝视并接纳伤痕累累的过去</strong>，将个人痛苦转化为普世的艺术慰藉。她告诉我们，与过去和解不是遗忘，而是有力量将伤痕化作滋养未来的土壤。</p>
+            </div>
+            <div class="page-indicator">4</div>
+        </div>
+
+        <!-- 第5页：电影对比 -->
+        <div class="page" id="page5" style="display: none;">
+            <div class="page-header">
+                <h2 class="page-title">双面叙事镜像</h2>
+                <p class="page-subtitle">两部电影中的女性力量</p>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th width="25%">维度</th>
+                        <th width="37.5%">《还有明天》<br>(C'è ancora domani)</th>
+                        <th width="37.5%">《初步举证》<br>(Prima Facie)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>核心叙事</strong></td>
+                        <td><strong>"母亲的革命"</strong>：一位受家暴的底层母亲，为阻止女儿重蹈覆辙，在1946年意大利女性首次拥有投票权的历史背景下，完成自我觉醒与反抗。</td>
+                        <td><strong>"体系的反思者"</strong>：一位出身寒门、擅长为性侵者辩护的精英女律师，在自己遭遇性侵后，从法律体系的捍卫者变为受害者，亲身揭示了司法体系中固有的性别偏见。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>形式与风格</strong></td>
+                        <td><strong>剧情长片</strong>，采用<strong>黑白影像</strong>，风格扎实、充满戏剧张力。用古典的视听语言讲述了一个极具力量的历史故事。</td>
+                        <td>改编自舞台剧的<strong>独角戏</strong>。全剧由一个演员在极简舞台上独自完成，依赖极度精湛的表演，在多重角色和时空之间无缝切换，冲击力极强。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>奖项与影响</strong></td>
+                        <td>
+                            2023年意大利票房冠军
+                            <div style="margin-top: 8px;">
+                                <span class="badge">意大利大卫奖最佳女主角</span>
+                                <span class="badge">金熊猫奖最佳影片</span>
+                                <span class="badge">金鸡奖最佳外语片</span>
+                            </div>
+                        </td>
+                        <td>
+                            全球现象级舞台剧
+                            <div style="margin-top: 8px;">
+                                <span class="badge">英国奥利弗奖最佳女主角</span>
+                                <span class="badge">美国托尼奖最佳女主角</span>
+                            </div>
+                            <p style="margin-top: 8px; font-size: 0.85rem;"><strong>辛芷蕾的中文版：</strong>荣获第32届上海白玉兰戏剧表演艺术奖主角奖，成为她演艺生涯的关键突破。</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="card" style="margin-top: 25px;">
+                <h3 class="card-title"><i class="fas fa-lightbulb"></i> 两种强大的路径</h3>
+                <p><strong>《还有明天》</strong>将女性觉醒置于宏大历史变革中，通过集体时刻解放个人命运。</p>
+                <p><strong>《初步举证》</strong>让体系内最熟悉规则的女性被体系背叛，用自身破碎经历揭露系统性不公。</p>
+            </div>
+            <div class="page-indicator">5</div>
+        </div>
+
+        <!-- 第6页：结语 - 修正了核心启示卡片的图标 -->
+        <div class="page" id="page6" style="display: none;">
+            <div class="page-header">
+                <h2 class="page-title">在不同的温度，我们沸腾</h2>
+            </div>
+            
+            <div style="margin: 40px 0;">
+                <p>从战后罗马的投票站，到当代法庭的证人席；从东北小城的困顿，到监狱高墙内的黑暗，再到威尼斯红毯的星光——这五位女性走过的路，无一平坦，却都在各自的轨道上找到了让自己沸腾的温度。</p>
+                
+                <div class="card" style="margin: 30px 0; background: linear-gradient(to right, rgba(201, 168, 106, 0.1), rgba(201, 168, 106, 0));">
+                    <!-- 修正：将引号图标改为火焰图标 -->
+                    <h3 class="card-title"><i class="fas fa-fire"></i> 核心启示</h3>
+                    <p style="font-size: var(--font-size-md); text-align: center; padding: 10px;">
+                        女性的力量、成长与辉煌，从不只有一种模样。<br>
+                        无论是进取、救赎还是和解，其内核都是<strong>对自我意志的坚持和对命运主导权的勇敢夺取</strong>。
+                    </p>
+                </div>
+                
+                <p>电影是时间的艺术，也是记忆的载体。这些故事被讲述、被观看、被铭记，本身就是在为未来铺路。当我们被这些女性的故事照亮时，我们也在无形中，为自己内心那份关于勇气、尊严与自由的火种，添了一束柴。</p>
+                
+                <p style="margin-top: 30px; font-style: italic; text-align: center; color: var(--color-highlight);">
+                    愿每一个故事都不被遗忘，<br>
+                    愿每一种力量都被看见，<br>
+                    愿每一份温度，都能点燃更多生命的沸腾。
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(139, 87, 92, 0.1);">
+                <i class="fas fa-book" style="color: var(--color-accent); margin-bottom: 10px;"></i>
+                <p style="font-size: var(--font-size-sm); color: #888;">
+                    本纪念书册献给所有在逆境中绽放生命力、<br>
+                    在沉默中发出声音、在破碎中重建自我的女性。<br>
+                    故事未完，生命不息。
+                </p>
+            </div>
+            <div class="page-indicator">6</div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let currentPage = 1;
+            const totalPages = 6;
+            
+            // 显示指定页面
+            function showPage(pageNum) {
+                $('.page').hide();
+                $(`#page${pageNum}`).show();
+                currentPage = pageNum;
+                
+                // 更新导航按钮显示
+                if (pageNum === 1) {
+                    // 封面页：只显示下一页按钮在右侧
+                    $('#firstPageNav').show();
+                    $('#pageNav').hide();
+                } else if (pageNum === totalPages) {
+                    // 最后一页：只显示上一页按钮
+                    $('#firstPageNav').hide();
+                    $('#pageNav').show();
+                    $('#nextPage').hide();
+                    $('#prevPage').show();
+                } else {
+                    // 中间页：显示左右两个按钮
+                    $('#firstPageNav').hide();
+                    $('#pageNav').show();
+                    $('#nextPage').show();
+                    $('#prevPage').show();
+                }
+            }
+            
+            // 初始显示第一页
+            showPage(1);
+            
+            // 封面页下一页按钮点击事件
+            $('#nextPageFromFirst').click(function() {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            });
+            
+            // 上一页按钮点击事件
+            $('#prevPage').click(function() {
+                if (currentPage > 1) {
+                    showPage(currentPage - 1);
+                }
+            });
+            
+            // 下一页按钮点击事件
+            $('#nextPage').click(function() {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            });
+            
+            // 键盘翻页支持
+            $(document).keydown(function(e) {
+                if (e.keyCode === 37 || e.keyCode === 38) { // 左箭头或上箭头
+                    if (currentPage > 1) {
+                        showPage(currentPage - 1);
+                    }
+                } else if (e.keyCode === 39 || e.keyCode === 40) { // 右箭头或下箭头
+                    if (currentPage < totalPages) {
+                        showPage(currentPage + 1);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
